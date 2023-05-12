@@ -10,13 +10,13 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  // for extra field access
+  // ****** for extra field access *********
   final Completer<GoogleMapController> _controller = Completer();
-  // For Camera position (like move)
+  // ******** For Camera position (like move) ********
   static const CameraPosition kGooglePlex =
       CameraPosition(target: LatLng(31.4504, 73.1350), zoom: 14.4746);
 
-// Now add Multiple Markers
+// ******** Now add Multiple Markers ********
   final List<Marker> _marker = [];
   final List<Marker> _list = [
     const Marker(
@@ -56,7 +56,7 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
       /*   floatingActionButton: FloatingActionButton(
         onPressed: () async {
-          // Animate camera to move to any positio on google map
+          //******** Animate camera to move to any positio on google map */
           GoogleMapController controller = await _controller.future;
           controller.animateCamera(CameraUpdate.newCameraPosition(
               const CameraPosition(

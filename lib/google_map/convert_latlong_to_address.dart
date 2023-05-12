@@ -1,7 +1,7 @@
 // ignore_for_file: avoid_print
 
 import 'package:flutter/material.dart';
-import 'package:flutter_geocoder/geocoder.dart';
+import 'package:geocoding/geocoding.dart';
 
 class ConvertLatLngToAddress extends StatefulWidget {
   const ConvertLatLngToAddress({super.key});
@@ -28,7 +28,7 @@ class _ConvertLatLngToAddressState extends State<ConvertLatLngToAddress> {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               const Text(
-                "For Convert Latitude and Longitude to Address👇",
+                "Convert Latitude and Longitude to Address👇",
                 style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
               ),
               const SizedBox(
@@ -39,41 +39,31 @@ class _ConvertLatLngToAddressState extends State<ConvertLatLngToAddress> {
                 height: 30,
               ),
               const Text(
-                "For Convert Address to Latitude and Longitude👇",
+                "Convert Address to Latitude and Longitude👇",
                 style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
               ),
               const SizedBox(
                 height: 10,
               ),
-              Padding(
-                padding: const EdgeInsets.only(right: 50),
-                child: Text(convertAddresstoLatLng),
-              ),
+              Text(convertAddresstoLatLng),
               const SizedBox(
                 height: 40,
               ),
               GestureDetector(
                 onTap: () async {
                   //** For Convert Latitude and Longitude to Address ********
-                  final coordinates = Coordinates(31.4504, 73.1350);
-                  var address = await Geocoder.local
-                      .findAddressesFromCoordinates(coordinates);
-                  var first = address.first;
-                  print(first.addressLine);
-                  setState(() {
-                    convertLatLngToAddress = first.addressLine.toString();
-                  });
+
+                  List<Placemark> latLongToAddress =
+                      await placemarkFromCoordinates(31.4504, 73.1350);
 
                   //** For Convert Address to Latitude and Longitude ********
-
-                  const query = "1600 Amphiteatre Parkway, Mountain View";
-                  var addresses =
-                      await Geocoder.local.findAddressesFromQuery(query);
-                  var second = addresses.first;
-                  print("${second.featureName} : ${second.coordinates}");
-
+                  List<Location> addressToLatLong =
+                      await locationFromAddress("Gronausestraat 710, Enschede");
                   setState(() {
-                    convertAddresstoLatLng = second.coordinates.toString();
+                    convertAddresstoLatLng =
+                        "[${addressToLatLong.last.latitude.toString()} + ${addressToLatLong.last.longitude.toString()}]";
+                    convertLatLngToAddress =
+                        "${latLongToAddress.reversed.last.street} ${latLongToAddress.reversed.last.locality} ${latLongToAddress.reversed.last.country}. ";
                   });
                 },
                 child: Container(

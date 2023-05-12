@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'google_map/convert_latlong_to_address.dart';
+import 'google_map/getUserCurrentLocation.dart';
 
 void main() {
   runApp(const MyApp());
@@ -13,7 +13,7 @@ class MyApp extends StatelessWidget {
     return const MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Google Map',
-      home: ConvertLatLngToAddress(),
+      home: GetUserCurrentLocation(),
     );
   }
 }
